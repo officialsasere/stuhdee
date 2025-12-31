@@ -1,3 +1,5 @@
+
+
 import { AuthError } from '@supabase/supabase-js'
 
 export function getAuthErrorMessage(error: unknown): string {

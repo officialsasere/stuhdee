@@ -1,9 +1,39 @@
-import React from 'react'
+import Link from 'next/link'
 
-const nav = () => {
+export function Nav() {
   return (
-    <div>nav</div>
+    <nav className="bg-white border-b">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="flex items-center gap-6">
+          <Link href="/dashboard" className="text-xl font-bold">
+            Study Reminder
+          </Link>
+          <Link 
+            href="/dashboard" 
+            className="text-gray-600 hover:text-gray-900"
+          >
+            Dashboard
+          </Link>
+          <Link 
+            href="/courses" 
+            className="text-gray-600 hover:text-gray-900"
+          >
+            Courses
+          </Link>
+          <Link 
+            href="/settings" 
+            className="text-gray-600 hover:text-gray-900"
+          >
+            Settings
+          </Link>
+        </div>
+        
+        <form action="/api/auth/signout" method="post">
+          <button className="text-sm text-gray-600 hover:text-gray-900">
+            Sign Out
+          </button>
+        </form>
+      </div>
+    </nav>
   )
 }
-
-export default nav

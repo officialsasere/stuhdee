@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/features/auth/hooks/useAuth'
-import { getAuthErrorMessage } from '@/lib/auth-errors'
+import { getAuthErrorMessage } from '@/lib/errors/auth-errors'
 import { Eye, EyeOff } from 'lucide-react'
 
 export function LoginForm() {
