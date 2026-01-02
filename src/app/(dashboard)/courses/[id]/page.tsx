@@ -3,9 +3,10 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import type { Tables } from '@/types/database'
 import { CompleteButton } from '@/components/dashboard/complete-button'
+import { DeleteButton } from '@/components/courses/delete-button'
 
 type Session = Tables<'study_sessions'>
-type Course = Tables<'courses'>
+// type Course = Tables<'courses'>
 
 export default async function CoursePage({ params }: { params: Promise<{ id: string }> }) {
 
@@ -47,11 +48,25 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
           <Link href="/courses" className="text-blue-600 hover:underline text-sm">
             ← Back to Courses
           </Link>
+          
         </div>
+
+        
 
         {/* Course Header */}
         <div className="bg-white rounded-lg shadow p-6">
-          <h1 className="text-3xl font-bold text-gray-700">{course.course_name}</h1>
+          <div className="flex justify-between items-start mb-4">
+    <h1 className="text-3xl font-bold text-gray-700">{course.course_name}</h1>
+    <div className="flex gap-3">
+      <Link
+        href={`/courses/${course.id}/edit`}
+        className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+      >
+        Edit Course
+      </Link>
+      <DeleteButton courseId={course.id} courseName={course.course_name} />
+    </div>
+  </div>
           <div className="mt-4 grid grid-cols-3 gap-4 text-center">
             <div>
               <p className="text-gray-600 text-sm">Exam Date</p>

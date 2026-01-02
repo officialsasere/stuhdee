@@ -12,6 +12,7 @@ export type CreateCourseInput = {
   course_name: string
   exam_date: string
   total_topics: number
+  start_date?: string
 }
 
 export type StudySession = {

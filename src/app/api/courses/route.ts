@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     // Parse input
     const body = await request.json()
-    const { course_name, exam_date, total_topics } = body
+    const { course_name, exam_date, start_date, total_topics } = body
 
     // Validate
     if (!course_name || !exam_date || !total_topics) {
@@ -42,18 +42,19 @@ export async function POST(request: Request) {
     const course = await courseService.createCourse(user.id, {
       course_name,
       exam_date,
+      start_date,
       total_topics: parseInt(total_topics),
     })
 
     return NextResponse.json(course)
-  } catch (error) {
-    console.error('Create course error:', error)
-
-    return NextResponse.json(
-      { error: getApiErrorResponse(error) || 'Failed to create course' },
-      { status: 500 }
-    )
-  }
+  } catch (error: unknown) {
+  console.error('Create course error:', error)
+  const message = error instanceof Error ? error.message : 'Failed to create course'
+  return NextResponse.json(
+    { error: message },
+    { status: 500 }
+  )
+}
 }
 
 export async function GET() {
@@ -75,3 +76,5 @@ export async function GET() {
     )
   }
 }
+
+

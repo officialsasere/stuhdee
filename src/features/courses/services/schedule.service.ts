@@ -6,17 +6,17 @@ type GeneratedSession = {
 
 export const scheduleService = {
   /**
-   * Generate study schedule from today to exam date
+   * Generate study schedule from start date to exam date
    */
-  generateSchedule(examDate: string, totalTopics: number): GeneratedSession[] {
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
+  generateSchedule(examDate: string, totalTopics: number, startDate?: string, ): GeneratedSession[] {
+    const start = startDate ? new Date(startDate + 'T00:00:00') : new Date()
+    start.setHours(0, 0, 0, 0)
     
     const exam = new Date(examDate)
     exam.setHours(0, 0, 0, 0)
     
     // Calculate days until exam
-    const daysUntilExam = Math.ceil((exam.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+    const daysUntilExam = Math.ceil((exam.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
     
     if (daysUntilExam <= 0) {
       throw new Error('Exam date must be in the future')
@@ -30,8 +30,8 @@ export const scheduleService = {
     
     // Generate sessions for each day
     for (let day = 0; day < daysUntilExam && topicNumber <= totalTopics; day++) {
-      const sessionDate = new Date(today)
-      sessionDate.setDate(today.getDate() + day)
+      const sessionDate = new Date(start)
+      sessionDate.setDate(start.getDate() + day)
       
       // Create sessions for this day
       const topicsForToday = Math.min(topicsPerDay, totalTopics - topicNumber + 1)

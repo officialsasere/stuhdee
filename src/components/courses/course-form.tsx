@@ -8,10 +8,12 @@ export function CourseForm() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  
+  const today = new Date().toISOString().split('T')[0]
+
   const [formData, setFormData] = useState({
     course_name: '',
     exam_date: '',
+    start_date: today,
     total_topics: 1,
   })
 
@@ -27,14 +29,20 @@ export function CourseForm() {
         body: JSON.stringify(formData),
       })
 
+      if (formData.start_date > formData.exam_date) {
+  setError('Start date cannot be after exam date')
+  setLoading(false)
+  return
+}
+
       if (!response.ok) {
         const data = await response.json()
-        throw new Error(data.error || 'Failed to create course')
+        throw data
       }
 
       router.push('/dashboard')
       router.refresh()
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Create Course error:', error)
       setError(getCourseErrorMessage(error))
     } finally {
@@ -73,6 +81,31 @@ export function CourseForm() {
           className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-500" 
         />
       </div>
+
+      <div>
+  <label
+    htmlFor="start_date"
+    className="block text-sm font-medium mb-2 text-gray-600"
+  >
+    Start Studying
+  </label>
+
+  <input
+    id="start_date"
+    type="date"
+    min={new Date().toISOString().split('T')[0]}
+    value={formData.start_date}
+    onChange={(e) =>
+      setFormData({ ...formData, start_date: e.target.value })
+    }
+    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-500"
+  />
+
+  <p className="text-sm text-gray-500 mt-1">
+    Choose when you want to start studying. Default is today.
+  </p>
+</div>
+
 
       <div>
         <label htmlFor="total_topics" className="block text-sm font-medium mb-2 text-gray-600">

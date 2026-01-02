@@ -20,6 +20,7 @@ export type Database = {
           created_at: string | null
           exam_date: string
           id: string
+          start_date: string | null
           total_topics: number | null
           updated_at: string | null
           user_id: string
@@ -29,6 +30,7 @@ export type Database = {
           created_at?: string | null
           exam_date: string
           id?: string
+          start_date?: string | null
           total_topics?: number | null
           updated_at?: string | null
           user_id: string
@@ -38,6 +40,7 @@ export type Database = {
           created_at?: string | null
           exam_date?: string
           id?: string
+          start_date?: string | null
           total_topics?: number | null
           updated_at?: string | null
           user_id?: string

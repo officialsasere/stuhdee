@@ -100,9 +100,11 @@ export default async function DashboardPage() {
             {sessions && sessions.length > 0 ? (
               <div className="space-y-3">
                 {sessions.map((session: StudySessionWithCourse) => (
-                  <div key={session.id} className="border rounded-lg p-4">
-                    <h3 className="font-semibold">{session.courses?.course_name}</h3>
-                    <p className="text-gray-600 text-sm">{session.topic}</p>
+                  <div key={session.id} className="border rounded-lg p-4 flex w-full justify-between items-center">
+                   <div>
+                     <h3 className="font-semibold text-gray-700">{session.courses?.course_name}</h3>
+                    <p className="text-gray-600 text-sm ">{session.topic}</p>
+                   </div>
                     <CompleteButton sessionId={session.id} />
                   </div>
                 ))}
