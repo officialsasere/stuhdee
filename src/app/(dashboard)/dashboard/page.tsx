@@ -6,13 +6,16 @@ import type { Tables } from '@/types/database'
 import { CompleteButton } from '@/components/dashboard/complete-button'
 import { checkUserAccess } from '@/lib/access-control'
 import { TrialExpiredBanner } from '@/components/dashboard/trial-expired-banner'
+import { NotificationPrompt } from '@/components/notifications/notification-prompt'
+import { streakService } from '@/features/sessions/services/streak.service'
 
 type StudySessionWithCourse = Tables<'study_sessions'> & {
   courses: Pick<Tables<'courses'>, 'course_name'> | null
 }
 
 
-export default async function DashboardPage() {
+export default async function DashboardPage({searchParams} : {searchParams: Promise<{payment?: string}>}) {
+  const params = await searchParams;
   const supabase = await createClient()
   
   // Check if user is logged in
@@ -32,6 +35,10 @@ export default async function DashboardPage() {
     .eq('id', user.id)
     .single()
 
+
+     // Get streak
+  const streakData = await streakService.getStreak(user.id)
+
   // Get today's sessions
   const today = new Date().toISOString().split('T')[0]
  const { data: sessions } = accessStatus.hasAccess ? await supabase
@@ -49,12 +56,38 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-4xl mx-auto space-y-6">
+
+        {params.payment === 'success' && (
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+            <p className="text-green-800 font-semibold">
+              ✓ Payment successful! Your subscription is now active.
+            </p>
+          </div>
+        )}
+
+        {params.payment === 'failed' && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p className="text-red-800 font-semibold">
+              ✗ Payment failed. Please try again.
+            </p>
+          </div>
+        )}
+
+        {params.payment === 'error' && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <p className="text-yellow-800 font-semibold">
+              ⚠ Something went wrong. Please contact support.
+            </p>
+          </div>
+        )}
         
         {/* Header */}
         <div>
           <h1 className="text-3xl font-bold text-gray-700">Dashboard</h1>
           <p className="text-gray-600">Welcome back, {profile?.full_name}!</p>
         </div>
+
+        <NotificationPrompt />
 
         {/* Trial Expired Banner */}
         {accessStatus.status === 'trial_expired' && <TrialExpiredBanner />}
@@ -89,7 +122,10 @@ export default async function DashboardPage() {
           </div>
           <div className="bg-white p-6 rounded-lg shadow">
             <p className="text-gray-600 text-sm">Streak</p>
-            <p className="text-3xl font-bold text-gray-400">0 🔥</p>
+            <p className="text-3xl font-bold text-gray-400">{streakData.current} 🔥</p>
+            {streakData.longest > 0 && (
+      <p className="text-xs text-gray-500 mt-1">Best: {streakData.longest} days</p>
+    )}
           </div>
         </div>
 

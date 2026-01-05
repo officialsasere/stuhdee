@@ -51,9 +51,13 @@ export type Database = {
         Row: {
           avatar_url: string | null
           created_at: string | null
+          current_streak: number | null
           email: string | null
+          fcm_token: string | null
           full_name: string | null
           id: string
+          last_completed_date: string | null
+          longest_streak: number | null
           notification_enabled: boolean | null
           notification_time: string | null
           timezone: string | null
@@ -65,9 +69,13 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           created_at?: string | null
+          current_streak?: number | null
           email?: string | null
+          fcm_token?: string | null
           full_name?: string | null
           id: string
+          last_completed_date?: string | null
+          longest_streak?: number | null
           notification_enabled?: boolean | null
           notification_time?: string | null
           timezone?: string | null
@@ -79,9 +87,13 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           created_at?: string | null
+          current_streak?: number | null
           email?: string | null
+          fcm_token?: string | null
           full_name?: string | null
           id?: string
+          last_completed_date?: string | null
+          longest_streak?: number | null
           notification_enabled?: boolean | null
           notification_time?: string | null
           timezone?: string | null
@@ -171,6 +183,45 @@ export type Database = {
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
           updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          created_at: string | null
+          currency: string | null
+          id: string
+          payment_method: string | null
+          paystack_data: Json | null
+          plan_type: string | null
+          reference: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          payment_method?: string | null
+          paystack_data?: Json | null
+          plan_type?: string | null
+          reference: string
+          status: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          payment_method?: string | null
+          paystack_data?: Json | null
+          plan_type?: string | null
+          reference?: string
+          status?: string
           user_id?: string
         }
         Relationships: []

@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
-import type { Tables } from '@/types/database'
 
-type Course = Tables<'courses'>
+
+// type Course = Tables<'courses'>
 
 export default async function CoursesPage() {
   const supabase = await createClient()

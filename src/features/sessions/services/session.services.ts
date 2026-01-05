@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { streakService } from './streak.service'
 
 export const sessionService = {
   /**
@@ -19,6 +20,10 @@ export const sessionService = {
       .single()
     
     if (error) throw error
+
+     // Update streak
+    await streakService.updateStreak(userId)
+
     return data
   },
 

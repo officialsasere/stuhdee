@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { Nav } from '@/components/layout/nav'
+import { InstallPrompt } from '@/components/pwa/install-prompt'
 
 export default async function DashboardLayout({
   children,
@@ -18,6 +19,7 @@ export default async function DashboardLayout({
     <div>
       <Nav />
       {children}
+       <InstallPrompt />
     </div>
   )
 }

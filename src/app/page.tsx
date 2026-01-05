@@ -3,6 +3,7 @@
 import Footer from '@/components/layout/footer'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import Sitebar from '@/components/layout/sitebar'
 
 
 const fadeUp = {
@@ -24,39 +25,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white">
      {/* ================= NAVBAR ================= */}
-  <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-2xl font-bold text-gray-900">
-              Stuhdee
-            </Link>
-
-            <div className="hidden md:flex items-center space-x-8">
-              <button
-                onClick={() => scrollToSection('features')}
-                className="text-gray-600 hover:text-gray-900 transition"
-              >
-                Features
-              </button>
-              <button
-                onClick={() => scrollToSection('pricing')}
-                className="text-gray-600 hover:text-gray-900 transition"
-              >
-                Pricing
-              </button>
-              <Link href="/login" className="text-gray-600 hover:text-gray-900">
-                Sign in
-              </Link>
-              <Link
-                href="/signup"
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-              >
-                Start free trial
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+<Sitebar />
             {/* Offset for fixed nav */}
       <div className="pt-16" />
 
@@ -103,7 +72,7 @@ export default function LandingPage() {
       </section>
 
  {/* ================= STATS ================= */}
-      <section className="py-16 bg-gray-50">
+      {/* <section className="py-16 bg-gray-50">
         <motion.div
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
           initial="hidden"
@@ -122,7 +91,7 @@ export default function LandingPage() {
             </motion.div>
           ))}
         </motion.div>
-      </section>
+      </section> */}
 
       {/* ================= FEATURES ================= */}
       {/* <section id="features" className="py-24 px-4 sm:px-6 lg:px-8">
@@ -316,7 +285,7 @@ export default function LandingPage() {
             <div className="border-2 border-gray-200 rounded-2xl p-8 hover:border-blue-600 transition">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Monthly</h3>
               <div className="flex items-baseline mb-6">
-                <span className="text-5xl font-bold text-gray-900">$2</span>
+                <span className="text-5xl font-bold text-gray-900">$₦2,100</span>
                 <span className="text-gray-600 ml-2">/month</span>
               </div>
               <ul className="space-y-4 mb-8">
@@ -368,7 +337,7 @@ export default function LandingPage() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Semester</h3>
               <div className="flex items-baseline mb-2">
-                <span className="text-5xl font-bold text-gray-900">$5</span>
+                <span className="text-5xl font-bold text-gray-900">₦5,100</span>
                 <span className="text-gray-600 ml-2">/4 months</span>
               </div>
               <p className="text-sm text-gray-600 mb-6">Save 38% vs monthly</p>

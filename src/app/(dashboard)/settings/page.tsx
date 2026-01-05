@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { SettingsForm } from '@/components/settings/settings-form'
 import Link from 'next/link'
+import { TestNotificationButton } from '@/components/notifications/test-notification-button'
 
 export default async function SettingsPage() {
   const supabase = await createClient()
@@ -68,6 +69,20 @@ export default async function SettingsPage() {
               </Link>
             </div>
           )}
+        </div>
+        <div className="mt-4">
+  <TestNotificationButton />
+</div>
+
+   {/* Transactions Link */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold mb-3 text-gray-700">Billing</h3>
+          <Link
+            href="/transactions"
+            className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+          >
+            View transaction history →
+          </Link>
         </div>
 
         {/* Settings Form */}

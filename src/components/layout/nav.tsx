@@ -26,6 +26,12 @@ export function Nav() {
           >
             Settings
           </Link>
+          <Link 
+  href="/transactions" 
+  className="text-gray-600 hover:text-gray-900"
+>
+  Transactions
+</Link>
         </div>
         
         <form action="/api/auth/signout" method="post">

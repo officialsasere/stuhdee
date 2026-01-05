@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
+import { PaystackCheckoutButton } from '@/components/payment/paystack-checkout-button'
 
 export default async function PricingPage() {
   const supabase = await createClient()
@@ -28,7 +29,7 @@ export default async function PricingPage() {
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Monthly</h3>
               <div className="flex items-baseline justify-center">
-                <span className="text-5xl font-bold text-gray-700">$2</span>
+                <span className="text-5xl font-bold text-gray-700">₦2,100</span>
                 <span className="text-gray-600 ml-2">/month</span>
               </div>
             </div>
@@ -51,19 +52,17 @@ export default async function PricingPage() {
                 <span className='text-gray-500'>Progress tracking</span>
               </li>
               <li className="flex items-start">
-                <span className="text-green-600 mr-2">✓</span>
-                <span className='text-gray-500'>Cancel anytime</span>
+                {/* <span className="text-green-600 mr-2">✓</span> */}
+                {/* <span className='text-gray-500'>Cancel anytime</span> */}
               </li>
             </ul>
 
-            <button
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 font-semibold"
-              disabled
-            >
-              Coming Soon
-            </button>
+           <PaystackCheckoutButton 
+  planType="MONTHLY"
+  planName="Monthly Plan"
+/>
             <p className="text-xs text-center text-gray-500 mt-2">
-              Payment integration in progress
+              Cancel anytime
             </p>
           </div>
 
@@ -78,7 +77,7 @@ export default async function PricingPage() {
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Semester</h3>
               <div className="flex items-baseline justify-center">
-                <span className="text-5xl font-bold text-gray-700">$5</span>
+                <span className="text-5xl font-bold text-gray-700">₦5,100</span>
                 <span className="text-gray-600 ml-2">/4 months</span>
               </div>
               <p className="text-sm text-gray-600 mt-2">Save 38% vs monthly</p>
@@ -103,14 +102,12 @@ export default async function PricingPage() {
               </li>
             </ul>
 
-            <button
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 font-semibold"
-              disabled
-            >
-              Coming Soon
-            </button>
+           <PaystackCheckoutButton 
+  planType="SEMESTER"
+  planName="Semester Plan"
+/>
             <p className="text-xs text-center text-gray-500 mt-2">
-              Payment integration in progress
+              Cancel anytime
             </p>
           </div>
         </div>
