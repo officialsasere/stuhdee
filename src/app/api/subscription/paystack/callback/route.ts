@@ -11,7 +11,12 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const reference = searchParams.get('reference')
 
+    console.log('=== CALLBACK START ===')
+  console.log('Reference:', reference)
+
+
     if (!reference) {
+      console.log('No reference, redirecting to failed')
       redirect('/dashboard?payment=failed')
     }
 
@@ -19,25 +24,30 @@ export async function GET(request: Request) {
     const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) {
+      console.log('No user, redirecting to login')
       redirect('/login')
     }
+    console.log('User ID:', user.id)
   try {
     // Verify transaction with Paystack
     const verification = await paystackClient.verifyTransaction(reference!)
      const verificationData = verification.data as { 
       status: string
       customer: { customer_code: string }
-      metadata?: { plan_type?: string }
+      metadata?: { plan_type?: string; user_id?: string }
       plan?: string
       plan_object?: { interval: string }
       amount: number
+      reference: string
 }
     
-    console.log('Payment verification:', verification.data)
+    console.log('Verification status:', verificationData.status)
+    console.log('Plan:', verificationData.plan)
+    console.log('Customer:', verificationData.customer?.customer_code)
     
 
     if (verificationData.status === 'success') {
-      const { customer, metadata, plan, plan_object } = verificationData
+      const { customer, metadata, plan, plan_object, amount } = verificationData
 
       // Update transaction record
       await supabase

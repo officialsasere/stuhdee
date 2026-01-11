@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
+
 
 export const paymentService = {
   /**
@@ -15,7 +16,8 @@ export const paymentService = {
       current_period_end?: string
     }
   ) {
-    const supabase = await createClient()
+    
+    const supabase = createAdminClient()
     
     const { data: subscription, error } = await supabase
       .from('subscriptions')
@@ -37,7 +39,7 @@ export const paymentService = {
    * Mark trial as used
    */
   async markTrialAsUsed(userId: string) {
-    const supabase = await createClient()
+    const supabase =  createAdminClient()
     
     const { error } = await supabase
       .from('profiles')
@@ -51,7 +53,7 @@ export const paymentService = {
    * Get user subscription
    */
   async getSubscription(userId: string) {
-    const supabase = await createClient()
+    const supabase = createAdminClient()
     
     const { data, error } = await supabase
       .from('subscriptions')
